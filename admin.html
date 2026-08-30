@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>PlayVault Admin</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0f14;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* ===============================
+           HEADER
+        =============================== */
+
+        header {
+            background: #151b23;
+            border-bottom: 1px solid #29313d;
+            padding: 15px 20px;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #16a34a;
+
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .brand h1 {
+            font-size: 20px;
+        }
+
+        .brand p {
+            margin-top: 3px;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .logout-btn {
+            border: 1px solid #6b2020;
+            background: #3b1515;
+            color: #ffb4b4;
+
+            padding: 10px 15px;
+            border-radius: 9px;
+
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #501919;
+        }
+
+        /* ===============================
+           MAIN
+        =============================== */
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 25px 20px 50px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            font-size: 26px;
+        }
+
+        .welcome p {
+            margin-top: 6px;
+            color: #9ca3af;
+        }
+
+        /* ===============================
+           MESSAGE
+        =============================== */
+
+        #message {
+            display: none;
+
+            padding: 13px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+        }
+
+        .message-success {
+            display: block !important;
+            background: #12351f;
+            border: 1px solid #166534;
+            color: #86efac;
+        }
+
+        .message-error {
+            display: block !important;
+            background: #3b1515;
+            border: 1px solid #7f1d1d;
+            color: #fca5a5;
+        }
+
+        /* ===============================
+           STATISTICS
+        =============================== */
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #151b23;
+
+            border: 1px solid #29313d;
+
+            border-radius: 15px;
+
+            padding: 20px;
+        }
+
+        .stat-card span {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        .stat-card strong {
+            display: block;
+
+            margin-top: 8px;
+
+            font-size: 28px;
+        }
+
+        /* ===============================
+           PANEL
+        =============================== */
+
+        .panel {
+            background: #151b23;
+
+            border: 1px solid #29313d;
+
+            border-radius: 16px;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+        }
+
+        .panel-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .panel-header h3 {
+            font-size: 19px;
+        }
+
+        /* ===============================
+           BUTTON
+        =============================== */
+
+        button {
+            font-family: inherit;
+        }
+
+        .add-btn {
+            border: none;
+
+            background: #16a34a;
+            color: white;
+
+            padding: 11px 15px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #15803d;
+        }
+
+        .save-btn {
+            background: #16a34a;
+
+            border: none;
+
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            background: #15803d;
+        }
+
+        .cancel-btn {
+            background: #374151;
+
+            border: none;
+
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+        }
+
+        .cancel-btn:hover {
+            background: #4b5563;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            border: none;
+
+            padding: 8px 10px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            color: white;
+
+            font-size: 12px;
+        }
+
+        .edit-btn {
+            background: #2563eb;
+        }
+
+        .edit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
+
+        button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        button:active {
+            transform: scale(.97);
+        }
+
+        /* ===============================
+           FORM
+        =============================== */
+
+        #gameForm {
+            display: none;
+
+            border-top:
+                1px solid #29313d;
+
+            padding-top: 20px;
+
+            margin-top: 15px;
+        }
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #d1d5db;
+
+            font-size: 13px;
+        }
+
+        input,
+        textarea,
+        select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border:
+                1px solid #374151;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            background: #0f141b;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #16a34a;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkboxes {
+            display: flex;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+
+            padding-top: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #d1d5db;
+
+            font-size: 14px;
+        }
+
+        .checkbox-item input {
+            width: auto;
+        }
+
+        .form-buttons {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        /* ===============================
+           SEARCH
+        =============================== */
+
+        .search-box {
+            margin-bottom: 18px;
+        }
+
+        /* ===============================
+           TABLE
+        =============================== */
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            min-width: 850px;
+
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 13px 10px;
+
+            border-bottom:
+                1px solid #29313d;
+
+            text-align: left;
+
+            font-size: 13px;
+        }
+
+        th {
+            color: #9ca3af;
+            font-weight: normal;
+        }
+
+        td {
+            color: #e5e7eb;
+        }
+
+        /* ===============================
+           GAME COVER
+        =============================== */
+
+        .game-image {
+            width: 55px;
+            height: 65px;
+
+            object-fit: cover;
+
+            border-radius: 7px;
+
+            background: #0f141b;
+        }
+
+        /* ===============================
+           ACTION
+        =============================== */
+
+        .action-buttons {
+            display: flex;
+
+            gap: 7px;
+        }
+
+        /* ===============================
+           BADGE
+        =============================== */
+
+        .badge {
+            display: inline-block;
+
+            padding: 5px 8px;
+
+            border-radius: 6px;
+
+            font-size: 11px;
+        }
+
+        .badge-green {
+            background: #12351f;
+            color: #86efac;
+        }
+
+        .badge-gray {
+            background: #29313d;
+            color: #d1d5db;
+        }
+
+        /* ===============================
+           LOADING
+        =============================== */
+
+        .loading {
+            text-align: center;
+
+            padding: 30px;
+
+            color: #9ca3af;
+        }
+
+        /* ===============================
+           MOBILE
+        =============================== */
+
+        @media (max-width: 700px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .welcome h2 {
+                font-size: 22px;
+            }
+
+            .header-inner {
+                align-items: flex-start;
+            }
+
+            .brand h1 {
+                font-size: 17px;
+            }
+
+            .panel {
+                padding: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="header-inner">
+
+        <div class="brand">
+
+            <div class="logo">
+                PV
+            </div>
+
+            <div>
+
+                <h1>
+                    PlayVault Admin
+                </h1>
+
+                <p>
+                    Dashboard Pengelola Game
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="logout-btn"
+            id="logoutBtn"
+        >
+            Keluar
+        </button>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+    <div class="welcome">
+
+        <h2>
+            Dashboard Admin
+        </h2>
+
+        <p>
+            Kelola katalog game PlayVault dari sini.
+        </p>
+
+    </div>
+
+
+    <div id="message"></div>
+
+
+    <!-- ===============================
+         STATISTIK
+    =============================== -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <span>
+                Total Game
+            </span>
+
+            <strong id="totalGames">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Game Populer
+            </span>
+
+            <strong id="popularGames">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Game Legal
+            </span>
+
+            <strong id="legalGames">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===============================
+         KELOLA GAME
+    =============================== -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h3>
+                Kelola Game
+            </h3>
+
+
+            <button
+                type="button"
+                class="add-btn"
+                id="addGameBtn"
+            >
+                + Tambah Game
+            </button>
+
+        </div>
+
+
+        <form id="gameForm">
+
+            <input
+                type="hidden"
+                id="gameId"
+            >
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="title">
+                        Judul Game *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="platform">
+                        Platform
+                    </label>
+
+                    <input
+                        type="text"
+                        id="platform"
+                        placeholder="PS2"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="genre">
+                        Genre
+                    </label>
+
+                    <input
+                        type="text"
+                        id="genre"
+                        placeholder="Action"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="year">
+                        Tahun
+                    </label>
+
+                    <input
+                        type="number"
+                        id="year"
+                        placeholder="2020"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="rating">
+                        Rating
+                    </label>
+
+                    <input
+                        type="number"
+                        id="rating"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        placeholder="8.5"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="size">
+                        Ukuran
+                    </label>
+
+                    <input
+                        type="text"
+                        id="size"
+                        placeholder="2 GB"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="developer">
+                        Developer
+                    </label>
+
+                    <input
+                        type="text"
+                        id="developer"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="publisher">
+                        Publisher
+                    </label>
+
+                    <input
+                        type="text"
+                        id="publisher"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="language">
+                        Bahasa
+                    </label>
+
+                    <input
+                        type="text"
+                        id="language"
+                        placeholder="English"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="region">
+                        Region
+                    </label>
+
+                    <input
+                        type="text"
+                        id="region"
+                        placeholder="USA"
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label for="image">
+                        URL Gambar / Cover
+                    </label>
+
+                    <input
+                        type="url"
+                        id="image"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label for="download_url">
+                        URL Download
+                    </label>
+
+                    <input
+                        type="url"
+                        id="download_url"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label for="description">
+                        Deskripsi
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Deskripsi game..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Pengaturan
+                    </label>
+
+
+                    <div class="checkboxes">
+
+                        <label class="checkbox-item">
+
+                            <input
+                                type="checkbox"
+                                id="popular"
+                            >
+
+                            Game Populer
+
+                        </label>
+
+
+                        <label class="checkbox-item">
+
+                            <input
+                                type="checkbox"
+                                id="legal"
+                            >
+
+                            Legal
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="form-buttons">
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                    id="saveBtn"
+                >
+                    Simpan Game
+                </button>
+
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelBtn"
+                >
+                    Batal
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- ===============================
+         DAFTAR GAME
+    =============================== -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h3>
+                Daftar Game
+            </h3>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="🔎 Cari judul, platform, atau genre..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Cover
+                        </th>
+
+                        <th>
+                            Judul
+                        </th>
+
+                        <th>
+                            Platform
+                        </th>
+
+                        <th>
+                            Genre
+                        </th>
+
+                        <th>
+                            Tahun
+                        </th>
+
+                        <th>
+                            Rating
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Aksi
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="gameTable">
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            class="loading"
+                        >
+                            Memuat data game...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- PLAYVAULT APP -->
+
+<script src="app.js"></script>
+
+
+</body>
+
+</html>
