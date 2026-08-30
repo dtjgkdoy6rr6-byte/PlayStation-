@@ -1,0 +1,3045 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard — PlayVault</title>
+
+    <style>
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-box {
+    margin-bottom: 18px;
+}
+
+.search-box input {
+    width: 100%;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 13px 10px;
+
+    border-bottom:
+        1px solid #29313d;
+
+    text-align: left;
+
+    font-size: 13px;
+}
+
+th {
+    color: #9ca3af;
+    font-weight: normal;
+}
+
+td {
+    color: #e5e7eb;
+}
+
+
+/* =========================================
+   GAME COVER
+========================================= */
+
+.game-image {
+    width: 55px;
+    height: 65px;
+
+    object-fit: cover;
+
+    border-radius: 7px;
+
+    background: #0f141b;
+}
+
+
+/* =========================================
+   ACTION BUTTON
+========================================= */
+
+.action-buttons {
+    display: flex;
+    gap: 7px;
+}
+
+.edit-btn,
+.delete-btn {
+    border: none;
+
+    padding: 8px 10px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-size: 12px;
+}
+
+.edit-btn {
+    background: #2563eb;
+}
+
+.delete-btn {
+    background: #dc2626;
+}
+
+.edit-btn:active,
+.delete-btn:active,
+.add-btn:active,
+.save-btn:active,
+.cancel-btn:active {
+    transform: scale(.97);
+}
+
+
+/* =========================================
+   BADGE
+========================================= */
+
+.badge {
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+}
+
+.badge-green {
+    background: #12351f;
+    color: #86efac;
+}
+
+.badge-gray {
+    background: #29313d;
+    color: #d1d5db;
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading {
+    text-align: center;
+
+    padding: 30px;
+
+    color: #9ca3af;
+  }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0f14;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #151b23;
+            border-bottom: 1px solid #29313d;
+            padding: 15px 20px;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #16a34a;
+
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .brand h1 {
+            font-size: 20px;
+        }
+
+        .brand p {
+            margin-top: 3px;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .logout-btn {
+            border: 1px solid #6b2020;
+
+            background: #3b1515;
+            color: #ffb4b4;
+
+            padding: 10px 15px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+
+            padding: 25px 20px 50px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            font-size: 26px;
+        }
+
+        .welcome p {
+            margin-top: 6px;
+            color: #9ca3af;
+        }
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #151b23;
+
+            border: 1px solid #29313d;
+
+            border-radius: 15px;
+
+            padding: 20px;
+        }
+
+        .stat-card span {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        .stat-card strong {
+            display: block;
+
+            margin-top: 8px;
+
+            font-size: 28px;
+        }
+
+        .panel {
+            background: #151b23;
+
+            border: 1px solid #29313d;
+
+            border-radius: 16px;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+        }
+
+        .panel-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .panel-header h3 {
+            font-size: 19px;
+        }
+
+        .add-btn {
+            border: none;
+
+            background: #16a34a;
+            color: white;
+
+            padding: 11px 15px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        #gameForm {
+            display: none;
+
+            border-top:
+                1px solid #29313d;
+
+            padding-top: 20px;
+
+            margin-top: 15px;
+        }
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #d1d5db;
+
+            font-size: 13px;
+        }
+
+        input,
+        textarea,
+        select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border:
+                1px solid #374151;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            background: #0f141b;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #16a34a;
+        }
+
+        .checkboxes {
+            display: flex;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+
+            padding-top: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #d1d5db;
+
+            font-size: 14px;
+        }
+
+        .checkbox-item input {
+            width: auto;
+        }
+
+        .form-buttons {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        .save-btn {
+            background: #16a34a;
+
+            border: none;
+
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            background: #374151;
+
+            border: none;
+
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+        }
+
+        @media (max-width: 700px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .welcome h2 {
+                font-size: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="header-inner">
+
+        <div class="brand">
+
+            <div class="logo">
+                PV
+            </div>
+
+            <div>
+
+                <h1>
+                    PlayVault Admin
+                </h1>
+
+                <p>
+                    Dashboard Pengelola Game
+                </p>
+
+            </div>
+
+        </div>
+
+        <button
+            class="logout-btn"
+            id="logoutBtn"
+        >
+            Keluar
+        </button>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <div class="welcome">
+
+        <h2>
+            Dashboard Admin
+        </h2>
+
+        <p>
+            Kelola katalog game PlayVault dari sini.
+        </p>
+
+    </div>
+
+
+    <div id="message"></div>
+
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <span>
+                Total Game
+            </span>
+
+            <strong id="totalGames">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Game Populer
+            </span>
+
+            <strong id="popularGames">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Game Legal
+            </span>
+
+            <strong id="legalGames">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h3>
+                Kelola Game
+            </h3>
+
+            <button
+                class="add-btn"
+                id="addGameBtn"
+            >
+                + Tambah Game
+            </button>
+
+        </div>
+
+
+        <form id="gameForm">
+
+            <input
+                type="hidden"
+                id="gameId"
+            >
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Judul Game *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Platform
+                    </label>
+
+                    <input
+                        type="text"
+                        id="platform"
+                        placeholder="PS2"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Genre
+                    </label>
+
+                    <input
+                        type="text"
+                        id="genre"
+                        placeholder="Action"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tahun
+                    </label>
+
+                    <input
+                        type="number"
+                        id="year"
+                        placeholder="2020"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Rating
+                    </label>
+
+                    <input
+                        type="number"
+                        id="rating"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        placeholder="8.5"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Ukuran
+                    </label>
+
+                    <input
+                        type="text"
+                        id="size"
+                        placeholder="2 GB"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Developer
+                    </label>
+
+                    <input
+                        type="text"
+                        id="developer"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Publisher
+                    </label>
+
+                    <input
+                        type="text"
+                        id="publisher"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Bahasa
+                    </label>
+
+                    <input
+                        type="text"
+                        id="language"
+                        placeholder="English"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Region
+                    </label>
+
+                    <input
+                        type="text"
+                        id="region"
+                        placeholder="USA"
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        URL Gambar / Cover
+                    </label>
+
+                    <input
+                        type="url"
+                        id="image"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        URL Download
+                    </label>
+
+                    <input
+                        type="url"
+                        id="download_url"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Deskripsi
+                    </label>
+
+                    <textarea
+                        id="description"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Pengaturan
+                    </label>
+
+                    <div class="checkboxes">
+
+                        <label class="checkbox-item">
+
+                            <input
+                                type="checkbox"
+                                id="popular"
+                            >
+
+                            Game Populer
+
+                        </label>
+
+
+                        <label class="checkbox-item">
+
+                            <input
+                                type="checkbox"
+                                id="legal"
+                            >
+
+                            Legal
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-buttons">
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                    id="saveBtn"
+                >
+                    Simpan Game
+                </button>
+
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelBtn"
+                >
+                    Batal
+                </button>
+
+            </div>
+
+        </form>
+    <!-- =========================================
+         DAFTAR GAME
+    ========================================== -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h3>
+                Daftar Game
+            </h3>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="🔎 Cari judul game..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <!-- TABLE -->
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Cover
+                        </th>
+
+                        <th>
+                            Judul
+                        </th>
+
+                        <th>
+                            Platform
+                        </th>
+
+                        <th>
+                            Genre
+                        </th>
+
+                        <th>
+                            Tahun
+                        </th>
+
+                        <th>
+                            Rating
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Aksi
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="gameTable">
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            class="loading"
+                        >
+                            Belum ada data game.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+    </div>
+
+</main>
+
+<script>
+
+console.log(
+    "PLAYVAULT ADMIN HTML AKTIF"
+);
+
+</script>
+<script>
+
+console.log(
+    "PLAYVAULT ADMIN HTML AKTIF"
+);
+
+</script>
+  <!-- =========================================
+     SUPABASE
+========================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* =========================================
+   KONFIGURASI SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://jxoeuxcwsaqmgsxiopqj.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_1FUkGM29tdLwvbnMn6AgIw_eesBsUrw";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+console.log(
+    "PLAYVAULT: Supabase berhasil dibuat."
+);
+
+
+/* =========================================
+   ELEMENT
+========================================= */
+
+const gameTable =
+    document.getElementById("gameTable");
+
+const totalGames =
+    document.getElementById("totalGames");
+
+const popularGames =
+    document.getElementById("popularGames");
+
+const legalGames =
+    document.getElementById("legalGames");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+
+/* =========================================
+   DATA GAME
+========================================= */
+
+let allGames = [];
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================
+   LOAD GAME
+========================================= */
+
+async function loadGames() {
+
+    console.log(
+        "PLAYVAULT: Mengambil data game..."
+    );
+
+
+    if (!gameTable) {
+
+        console.error(
+            "PLAYVAULT: #gameTable tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    gameTable.innerHTML = `
+        <tr>
+            <td
+                colspan="8"
+                class="loading"
+            >
+                Memuat data game...
+            </td>
+        </tr>
+    `;
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("games")
+        .select("*")
+        .order("id", {
+            ascending: false
+        });
+
+
+    if (error) {
+
+        console.error(
+            "PLAYVAULT: Gagal mengambil game:",
+            error
+        );
+
+
+        gameTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="loading"
+                >
+                    Gagal mengambil data game.
+                    <br><br>
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    allGames = data || [];
+
+
+    console.log(
+        "PLAYVAULT: Jumlah game:",
+        allGames.length
+    );
+
+
+    updateStatistics();
+
+    renderGames(allGames);
+
+}
+
+
+/* =========================================
+   STATISTIK
+========================================= */
+
+function updateStatistics() {
+
+    if (totalGames) {
+
+        totalGames.textContent =
+            allGames.length;
+
+    }
+
+
+    if (popularGames) {
+
+        popularGames.textContent =
+            allGames.filter(
+                function(game) {
+
+                    return game.popular === true;
+
+                }
+            ).length;
+
+    }
+
+
+    if (legalGames) {
+
+        legalGames.textContent =
+            allGames.filter(
+                function(game) {
+
+                    return game.legal === true;
+
+                }
+            ).length;
+
+    }
+
+}
+
+
+/* =========================================
+   RENDER GAME
+========================================= */
+
+function renderGames(games) {
+
+    if (!gameTable) {
+        return;
+    }
+
+
+    if (!games || games.length === 0) {
+
+        gameTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="loading"
+                >
+                    Tidak ada game ditemukan.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    gameTable.innerHTML =
+        games.map(
+            function(game) {
+
+                const image =
+                    game.image ||
+                    "https://placehold.co/55x65?text=Game";
+
+
+                const status =
+                    game.popular
+                        ? `
+                            <span
+                                class="badge badge-green"
+                            >
+                                Populer
+                            </span>
+                        `
+                        : `
+                            <span
+                                class="badge badge-gray"
+                            >
+                                Normal
+                            </span>
+                        `;
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+
+                            <img
+                                src="${escapeHtml(image)}"
+                                class="game-image"
+                                alt="${escapeHtml(
+                                    game.title || "Game"
+                                )}"
+                                onerror="
+                                    this.src='https://placehold.co/55x65?text=Game'
+                                "
+                            >
+
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                ${escapeHtml(
+                                    game.title || "-"
+                                )}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                game.platform || "-"
+                            )}
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                game.genre || "-"
+                            )}
+                        </td>
+
+
+                        <td>
+                            ${game.year ?? "-"}
+                        </td>
+
+
+                        <td>
+                            ${game.rating ?? "-"}
+                        </td>
+
+
+                        <td>
+                            ${status}
+                        </td>
+
+
+                        <td>
+
+                            <div
+                                class="action-buttons"
+                            >
+
+                                <button
+                                    type="button"
+                                    class="edit-btn"
+                                    disabled
+                                >
+                                    Edit
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="delete-btn"
+                                    disabled
+                                >
+                                    Hapus
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        function() {
+
+            const keyword =
+                this.value
+                    .trim()
+                    .toLowerCase();
+
+
+            if (!keyword) {
+
+                renderGames(
+                    allGames
+                );
+
+                return;
+
+            }
+
+
+            const filtered =
+                allGames.filter(
+                    function(game) {
+
+                        const title =
+                            String(
+                                game.title || ""
+                            ).toLowerCase();
+
+
+                        const platform =
+                            String(
+                                game.platform || ""
+                            ).toLowerCase();
+
+
+                        const genre =
+                            String(
+                                game.genre || ""
+                            ).toLowerCase();
+
+
+                        return (
+                            title.includes(
+                                keyword
+                            )
+                            ||
+                            platform.includes(
+                                keyword
+                            )
+                            ||
+                            genre.includes(
+                                keyword
+                            )
+                        );
+
+                    }
+                );
+
+
+            renderGames(
+                filtered
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   MULAI
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        console.log(
+            "================================="
+        );
+
+        console.log(
+            "PLAYVAULT ADMIN JS AKTIF"
+        );
+
+        console.log(
+            "================================="
+        );
+
+
+        loadGames();
+
+    }
+);
+
+</script>
+  <!-- =========================================
+     SUPABASE
+========================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://jxoeuxcwsaqmgsxiopqj.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_1FUkGM29tdLwvbnMn6AgIw_eesBsUrw";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+/* =========================================
+   ELEMENT
+========================================= */
+
+const gameTable =
+    document.getElementById("gameTable");
+
+const totalGames =
+    document.getElementById("totalGames");
+
+const popularGames =
+    document.getElementById("popularGames");
+
+const legalGames =
+    document.getElementById("legalGames");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const gameForm =
+    document.getElementById("gameForm");
+
+const addGameBtn =
+    document.getElementById("addGameBtn");
+
+const cancelBtn =
+    document.getElementById("cancelBtn");
+
+const saveBtn =
+    document.getElementById("saveBtn");
+
+const message =
+    document.getElementById("message");
+
+
+let allGames = [];
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showMessage(text, type) {
+
+    if (!message) return;
+
+    message.className = "";
+
+    message.textContent = text;
+
+    if (type === "success") {
+
+        message.classList.add(
+            "message-success"
+        );
+
+    }
+
+    if (type === "error") {
+
+        message.classList.add(
+            "message-error"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   LOAD GAMES
+========================================= */
+
+async function loadGames() {
+
+    console.log(
+        "PLAYVAULT: Mengambil data game..."
+    );
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("games")
+        .select("*")
+        .order("id", {
+            ascending: false
+        });
+
+
+    if (error) {
+
+        console.error(
+            "Gagal mengambil game:",
+            error
+        );
+
+        showMessage(
+            "Gagal mengambil game: " +
+            error.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    allGames = data || [];
+
+
+    updateStatistics();
+
+    renderGames(
+        allGames
+    );
+
+
+    console.log(
+        "PLAYVAULT: " +
+        allGames.length +
+        " game berhasil dimuat."
+    );
+
+}
+
+
+/* =========================================
+   STATISTIK
+========================================= */
+
+function updateStatistics() {
+
+    if (totalGames) {
+
+        totalGames.textContent =
+            allGames.length;
+
+    }
+
+
+    if (popularGames) {
+
+        popularGames.textContent =
+            allGames.filter(
+                function(game) {
+
+                    return game.popular === true;
+
+                }
+            ).length;
+
+    }
+
+
+    if (legalGames) {
+
+        legalGames.textContent =
+            allGames.filter(
+                function(game) {
+
+                    return game.legal === true;
+
+                }
+            ).length;
+
+    }
+
+}
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function renderGames(games) {
+
+    if (!gameTable) return;
+
+
+    if (!games || games.length === 0) {
+
+        gameTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="loading"
+                >
+                    Tidak ada game.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    gameTable.innerHTML =
+        games.map(
+            function(game) {
+
+                const image =
+                    game.image ||
+                    "https://placehold.co/55x65?text=Game";
+
+
+                const status =
+                    game.popular
+                        ? `
+                            <span class="badge badge-green">
+                                Populer
+                            </span>
+                        `
+                        : `
+                            <span class="badge badge-gray">
+                                Normal
+                            </span>
+                        `;
+
+
+                return `
+                    <tr>
+
+                        <td>
+
+                            <img
+                                src="${escapeHtml(image)}"
+                                class="game-image"
+                                alt="Cover"
+                                onerror="
+                                    this.src='https://placehold.co/55x65?text=Game'
+                                "
+                            >
+
+                        </td>
+
+
+                        <td>
+                            <strong>
+                                ${escapeHtml(
+                                    game.title || "-"
+                                )}
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                game.platform || "-"
+                            )}
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                game.genre || "-"
+                            )}
+                        </td>
+
+
+                        <td>
+                            ${game.year ?? "-"}
+                        </td>
+
+
+                        <td>
+                            ${game.rating ?? "-"}
+                        </td>
+
+
+                        <td>
+                            ${status}
+                        </td>
+
+
+                        <td>
+
+                            <div class="action-buttons">
+
+                                <button
+                                    type="button"
+                                    class="edit-btn"
+                                    onclick="editGame(${game.id})"
+                                >
+                                    Edit
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="delete-btn"
+                                    disabled
+                                >
+                                    Hapus
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================================
+   RESET FORM
+========================================= */
+
+function resetForm() {
+
+    if (!gameForm) return;
+
+    gameForm.reset();
+
+
+    const gameId =
+        document.getElementById(
+            "gameId"
+        );
+
+
+    if (gameId) {
+
+        gameId.value = "";
+
+    }
+
+
+    if (saveBtn) {
+
+        saveBtn.textContent =
+            "Simpan Game";
+
+    }
+
+}
+
+
+/* =========================================
+   TAMBAH GAME
+========================================= */
+
+if (addGameBtn) {
+
+    addGameBtn.addEventListener(
+        "click",
+        function() {
+
+            resetForm();
+
+            gameForm.style.display =
+                "block";
+
+
+            const title =
+                document.getElementById(
+                    "title"
+                );
+
+
+            if (title) {
+
+                title.focus();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   BATAL
+========================================= */
+
+if (cancelBtn) {
+
+    cancelBtn.addEventListener(
+        "click",
+        function() {
+
+            resetForm();
+
+            gameForm.style.display =
+                "none";
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   EDIT GAME
+========================================= */
+
+window.editGame =
+    function(id) {
+
+        const game =
+            allGames.find(
+                function(item) {
+
+                    return Number(item.id) ===
+                        Number(id);
+
+                }
+            );
+
+
+        if (!game) {
+
+            showMessage(
+                "Data game tidak ditemukan.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "gameId"
+        ).value =
+            game.id;
+
+
+        document.getElementById(
+            "title"
+        ).value =
+            game.title || "";
+
+
+        document.getElementById(
+            "platform"
+        ).value =
+            game.platform || "";
+
+
+        document.getElementById(
+            "genre"
+        ).value =
+            game.genre || "";
+
+
+        document.getElementById(
+            "year"
+        ).value =
+            game.year ?? "";
+
+
+        document.getElementById(
+            "rating"
+        ).value =
+            game.rating ?? "";
+
+
+        document.getElementById(
+            "size"
+        ).value =
+            game.size || "";
+
+
+        document.getElementById(
+            "developer"
+        ).value =
+            game.developer || "";
+
+
+        document.getElementById(
+            "publisher"
+        ).value =
+            game.publisher || "";
+
+
+        document.getElementById(
+            "language"
+        ).value =
+            game.language || "";
+
+
+        document.getElementById(
+            "region"
+        ).value =
+            game.region || "";
+
+
+        document.getElementById(
+            "image"
+        ).value =
+            game.image || "";
+
+
+        document.getElementById(
+            "download_url"
+        ).value =
+            game.download_url || "";
+
+
+        document.getElementById(
+            "description"
+        ).value =
+            game.description || "";
+
+
+        document.getElementById(
+            "popular"
+        ).checked =
+            game.popular === true;
+
+
+        document.getElementById(
+            "legal"
+        ).checked =
+            game.legal === true;
+
+
+        if (saveBtn) {
+
+            saveBtn.textContent =
+                "Perbarui Game";
+
+        }
+
+
+        gameForm.style.display =
+            "block";
+
+
+        gameForm.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    };
+
+
+/* =========================================
+   SIMPAN / UPDATE GAME
+========================================= */
+
+if (gameForm) {
+
+    gameForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const gameId =
+                document.getElementById(
+                    "gameId"
+                ).value;
+
+
+            const gameData = {
+
+                title:
+                    document.getElementById(
+                        "title"
+                    ).value.trim(),
+
+                platform:
+                    document.getElementById(
+                        "platform"
+                    ).value.trim(),
+
+                genre:
+                    document.getElementById(
+                        "genre"
+                    ).value.trim(),
+
+                year:
+                    document.getElementById(
+                        "year"
+                    ).value
+                        ? Number(
+                            document.getElementById(
+                                "year"
+                            ).value
+                        )
+                        : null,
+
+                rating:
+                    document.getElementById(
+                        "rating"
+                    ).value
+                        ? Number(
+                            document.getElementById(
+                                "rating"
+                            ).value
+                        )
+                        : null,
+
+                size:
+                    document.getElementById(
+                        "size"
+                    ).value.trim(),
+
+                developer:
+                    document.getElementById(
+                        "developer"
+                    ).value.trim(),
+
+                publisher:
+                    document.getElementById(
+                        "publisher"
+                    ).value.trim(),
+
+                language:
+                    document.getElementById(
+                        "language"
+                    ).value.trim(),
+
+                region:
+                    document.getElementById(
+                        "region"
+                    ).value.trim(),
+
+                image:
+                    document.getElementById(
+                        "image"
+                    ).value.trim(),
+
+                download_url:
+                    document.getElementById(
+                        "download_url"
+                    ).value.trim(),
+
+                description:
+                    document.getElementById(
+                        "description"
+                    ).value.trim(),
+
+                popular:
+                    document.getElementById(
+                        "popular"
+                    ).checked,
+
+                legal:
+                    document.getElementById(
+                        "legal"
+                    ).checked
+
+            };
+
+
+            if (!gameData.title) {
+
+                showMessage(
+                    "Judul game wajib diisi.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            saveBtn.disabled = true;
+
+            saveBtn.textContent =
+                gameId
+                    ? "Memperbarui..."
+                    : "Menyimpan...";
+
+
+            try {
+
+                let result;
+
+
+                /* =========================
+                   UPDATE
+                ========================= */
+
+                if (gameId) {
+
+                    result =
+                        await supabaseClient
+                            .from("games")
+                            .update(gameData)
+                            .eq(
+                                "id",
+                                gameId
+                            );
+
+                }
+
+
+                /* =========================
+                   INSERT
+                ========================= */
+
+                else {
+
+                    result =
+                        await supabaseClient
+                            .from("games")
+                            .insert([
+                                gameData
+                            ]);
+
+                }
+
+
+                if (result.error) {
+
+                    console.error(
+                        "Supabase error:",
+                        result.error
+                    );
+
+
+                    showMessage(
+                        "Gagal menyimpan: " +
+                        result.error.message,
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                showMessage(
+                    gameId
+                        ? "Game berhasil diperbarui."
+                        : "Game berhasil ditambahkan.",
+                    "success"
+                );
+
+
+                resetForm();
+
+
+                gameForm.style.display =
+                    "none";
+
+
+                await loadGames();
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Save error:",
+                    error
+                );
+
+
+                showMessage(
+                    "Terjadi kesalahan saat menyimpan game.",
+                    "error"
+                );
+
+            }
+
+
+            finally {
+
+                saveBtn.disabled =
+                    false;
+
+                saveBtn.textContent =
+                    "Simpan Game";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        function() {
+
+            const keyword =
+                this.value
+                    .trim()
+                    .toLowerCase();
+
+
+            if (!keyword) {
+
+                renderGames(
+                    allGames
+                );
+
+                return;
+
+            }
+
+
+            const filtered =
+                allGames.filter(
+                    function(game) {
+
+                        return (
+
+                            String(
+                                game.title || ""
+                            )
+                                .toLowerCase()
+                                .includes(
+                                    keyword
+                                )
+
+                            ||
+
+                            String(
+                                game.platform || ""
+                            )
+                                .toLowerCase()
+                                .includes(
+                                    keyword
+                                )
+
+                            ||
+
+                            String(
+                                game.genre || ""
+                            )
+                                .toLowerCase()
+                                .includes(
+                                    keyword
+                                )
+
+                        );
+
+                    }
+                );
+
+
+            renderGames(
+                filtered
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   MULAI
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        console.log(
+            "PLAYVAULT ADMIN JS AKTIF"
+        );
+
+        loadGames();
+
+    }
+);
+
+</script>
+
+/* =========================================
+   KONFIGURASI SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://jxoeuxcwsaqmgsxiopqj.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_1FUkGM29tdLwvbnMn6AgIw_eesBsUrw";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+console.log(
+    "PLAYVAULT: Supabase berhasil dibuat."
+);
+
+
+/* =========================================
+   ELEMENT
+========================================= */
+
+const gameTable =
+    document.getElementById("gameTable");
+
+const totalGames =
+    document.getElementById("totalGames");
+
+const popularGames =
+    document.getElementById("popularGames");
+
+const legalGames =
+    document.getElementById("legalGames");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+
+/* =========================================
+   DATA GAME
+========================================= */
+
+let allGames = [];
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================
+   LOAD GAME
+========================================= */
+
+async function loadGames() {
+
+    console.log(
+        "PLAYVAULT: Mengambil data game..."
+    );
+
+
+    if (!gameTable) {
+
+        console.error(
+            "PLAYVAULT: #gameTable tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    gameTable.innerHTML = `
+        <tr>
+            <td
+                colspan="8"
+                class="loading"
+            >
+                Memuat data game...
+            </td>
+        </tr>
+    `;
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("games")
+        .select("*")
+        .order("id", {
+            ascending: false
+        });
+
+
+    if (error) {
+
+        console.error(
+            "PLAYVAULT: Gagal mengambil game:",
+            error
+        );
+
+
+        gameTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="loading"
+                >
+                    Gagal mengambil data game.
+                    <br><br>
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    allGames = data || [];
+
+
+    console.log(
+        "PLAYVAULT: Jumlah game:",
+        allGames.length
+    );
+
+
+    updateStatistics();
+
+    renderGames(allGames);
+
+}
+
+
+/* =========================================
+   STATISTIK
+========================================= */
+
+function updateStatistics() {
+
+    if (totalGames) {
+
+        totalGames.textContent =
+            allGames.length;
+
+    }
+
+
+    if (popularGames) {
+
+        popularGames.textContent =
+            allGames.filter(
+                function(game) {
+
+                    return game.popular === true;
+
+                }
+            ).length;
+
+    }
+
+
+    if (legalGames) {
+
+        legalGames.textContent =
+            allGames.filter(
+                function(game) {
+
+                    return game.legal === true;
+
+                }
+            ).length;
+
+    }
+
+}
+
+
+/* =========================================
+   RENDER GAME
+========================================= */
+
+function renderGames(games) {
+
+    if (!gameTable) {
+        return;
+    }
+
+
+    if (!games || games.length === 0) {
+
+        gameTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="loading"
+                >
+                    Tidak ada game ditemukan.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    gameTable.innerHTML =
+        games.map(
+            function(game) {
+
+                const image =
+                    game.image ||
+                    "https://placehold.co/55x65?text=Game";
+
+
+                const status =
+                    game.popular
+                        ? `
+                            <span
+                                class="badge badge-green"
+                            >
+                                Populer
+                            </span>
+                        `
+                        : `
+                            <span
+                                class="badge badge-gray"
+                            >
+                                Normal
+                            </span>
+                        `;
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+
+                            <img
+                                src="${escapeHtml(image)}"
+                                class="game-image"
+                                alt="${escapeHtml(
+                                    game.title || "Game"
+                                )}"
+                                onerror="
+                                    this.src='https://placehold.co/55x65?text=Game'
+                                "
+                            >
+
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                ${escapeHtml(
+                                    game.title || "-"
+                                )}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                game.platform || "-"
+                            )}
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                game.genre || "-"
+                            )}
+                        </td>
+
+
+                        <td>
+                            ${game.year ?? "-"}
+                        </td>
+
+
+                        <td>
+                            ${game.rating ?? "-"}
+                        </td>
+
+
+                        <td>
+                            ${status}
+                        </td>
+
+
+                        <td>
+
+                            <div
+                                class="action-buttons"
+                            >
+
+                                <button
+                                    type="button"
+                                    class="edit-btn"
+                                    disabled
+                                >
+                                    Edit
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="delete-btn"
+                                    disabled
+                                >
+                                    Hapus
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        function() {
+
+            const keyword =
+                this.value
+                    .trim()
+                    .toLowerCase();
+
+
+            if (!keyword) {
+
+                renderGames(
+                    allGames
+                );
+
+                return;
+
+            }
+
+
+            const filtered =
+                allGames.filter(
+                    function(game) {
+
+                        const title =
+                            String(
+                                game.title || ""
+                            ).toLowerCase();
+
+
+                        const platform =
+                            String(
+                                game.platform || ""
+                            ).toLowerCase();
+
+
+                        const genre =
+                            String(
+                                game.genre || ""
+                            ).toLowerCase();
+
+
+                        return (
+                            title.includes(
+                                keyword
+                            )
+                            ||
+                            platform.includes(
+                                keyword
+                            )
+                            ||
+                            genre.includes(
+                                keyword
+                            )
+                        );
+
+                    }
+                );
+
+
+            renderGames(
+                filtered
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   MULAI
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        console.log(
+            "================================="
+        );
+
+        console.log(
+            "PLAYVAULT ADMIN JS AKTIF"
+        );
+
+        console.log(
+            "================================="
+        );
+
+
+        loadGames();
+
+    }
+);
+<script>
+
+/* =====================================================
+   PLAYVAULT ADMIN — BAGIAN 5
+   SEARCH + LOGOUT + ESCAPE + START
+===================================================== */
+
+
+/* =====================================================
+   SEARCH GAME
+===================================================== */
+
+searchInput.addEventListener("input", function () {
+
+    const keyword =
+        this.value
+            .toLowerCase()
+            .trim();
+
+    if (!keyword) {
+
+        renderGames(allGames);
+
+        return;
+    }
+
+
+    const filtered =
+        allGames.filter(function (game) {
+
+            const title =
+                String(game.title || "")
+                    .toLowerCase();
+
+            const platform =
+                String(game.platform || "")
+                    .toLowerCase();
+
+            const genre =
+                String(game.genre || "")
+                    .toLowerCase();
+
+            return (
+                title.includes(keyword) ||
+                platform.includes(keyword) ||
+                genre.includes(keyword)
+            );
+
+        });
+
+
+    renderGames(filtered);
+
+});
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+logoutBtn.addEventListener(
+    "click",
+    async function () {
+
+        const confirmed =
+            confirm(
+                "Yakin ingin keluar dari Admin?"
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        logoutBtn.disabled = true;
+
+        logoutBtn.textContent =
+            "Keluar...";
+
+
+        try {
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+
+                showMessage(
+                    "Gagal keluar: " +
+                    error.message,
+                    "error"
+                );
+
+
+                logoutBtn.disabled =
+                    false;
+
+                logoutBtn.textContent =
+                    "Keluar";
+
+                return;
+
+            }
+
+
+            window.location.href =
+                "admin-login.html";
+
+
+        } catch (error) {
+
+            console.error(
+                "Logout exception:",
+                error
+            );
+
+
+            showMessage(
+                "Terjadi kesalahan saat logout.",
+                "error"
+            );
+
+
+            logoutBtn.disabled =
+                false;
+
+            logoutBtn.textContent =
+                "Keluar";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   CEGAH FORM SUBMIT KOSONG
+===================================================== */
+
+gameForm.addEventListener(
+    "submit",
+    function (event) {
+
+        event.preventDefault();
+
+    }
+);
+
+
+/* =====================================================
+   CEK SESSION KETIKA HALAMAN DIBUKA
+===================================================== */
+
+console.log(
+    "================================="
+);
+
+console.log(
+    "PLAYVAULT ADMIN JS AKTIF"
+);
+
+console.log(
+    "================================="
+);
+
+
+checkAdminSession();
+
+
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="PlayVault - Katalog game PlayStation legal dan homebrew.">
+    <meta name="theme-color" content="#08090d">
+
+    <title>PlayVault — Game Catalog</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+        <a href="#" class="logo">
+            <span class="logo-icon">
+                <i class="fa-solid fa-gamepad"></i>
+            </span>
+
+            <span>Play<span>Vault</span></span>
+        </a>
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="#home" class="active">
+                <i class="fa-solid fa-house"></i>
+                Beranda
+            </a>
+
+            <a href="#games">
+                <i class="fa-solid fa-gamepad"></i>
+                Game
+            </a>
+
+            <a href="#popular">
+                <i class="fa-solid fa-fire"></i>
+                Populer
+            </a>
+
+            <a href="#about">
+                <i class="fa-solid fa-circle-info"></i>
+                Tentang
+            </a>
+        </nav>
+
+        <div class="nav-actions">
+
+            <button class="icon-btn" id="searchButton" aria-label="Cari">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <button class="icon-btn" id="themeButton" aria-label="Mode tampilan">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <button class="menu-btn" id="menuButton" aria-label="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     SEARCH OVERLAY
+========================= -->
+
+<div class="search-overlay" id="searchOverlay">
+
+    <div class="search-box">
+
+        <button class="close-search" id="closeSearch">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="search-input-wrapper">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Cari nama game..."
+                autocomplete="off"
+            >
+
+        </div>
+
+        <p class="search-info">
+            Ketik nama game untuk mencari katalog.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<main>
+
+<section class="hero" id="home">
+
+    <div class="hero-background"></div>
+
+    <div class="container hero-content">
+
+        <div class="hero-text">
+
+            <div class="hero-badge">
+                <i class="fa-solid fa-circle-check"></i>
+                Katalog Game Legal
+            </div>
+
+            <h1>
+                Temukan Game
+                <span>Favoritmu</span>
+            </h1>
+
+            <p>
+                Jelajahi katalog game PlayStation dengan tampilan
+                modern, cepat, dan nyaman digunakan dari perangkat
+                mobile maupun desktop.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#games" class="btn btn-primary">
+                    <i class="fa-solid fa-gamepad"></i>
+                    Jelajahi Game
+                </a>
+
+                <a href="#popular" class="btn btn-secondary">
+                    <i class="fa-solid fa-fire"></i>
+                    Game Populer
+                </a>
+
+            </div>
+
+            <div class="hero-stats">
+
+                <div class="stat">
+                    <strong id="gameCount">0</strong>
+                    <span>Game</span>
+                </div>
+
+                <div class="stat">
+                    <strong>100%</strong>
+                    <span>Katalog</span>
+                </div>
+
+                <div class="stat">
+                    <strong>24/7</strong>
+                    <span>Akses</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="hero-visual">
+
+            <div class="console-card">
+
+                <div class="console-top">
+                    <span class="console-light"></span>
+                    <span class="console-label">PLAYVAULT</span>
+                </div>
+
+                <div class="console-disc">
+                    <div class="disc-center"></div>
+                </div>
+
+                <div class="controller">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CATEGORY
+========================= -->
+
+<section class="category-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">PLATFORM</span>
+                <h2>Pilih Platform</h2>
+            </div>
+
+        </div>
+
+        <div class="category-list" id="categoryList">
+
+            <button class="category active" data-platform="Semua">
+                <i class="fa-solid fa-border-all"></i>
+                Semua
+            </button>
+
+            <button class="category" data-platform="PS1">
+                <i class="fa-solid fa-gamepad"></i>
+                PS1
+            </button>
+
+            <button class="category" data-platform="PS2">
+                <i class="fa-solid fa-gamepad"></i>
+                PS2
+            </button>
+
+            <button class="category" data-platform="PSP">
+                <i class="fa-solid fa-gamepad"></i>
+                PSP
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     POPULAR
+========================= -->
+
+<section class="games-section" id="popular">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">TRENDING</span>
+                <h2>Game Populer</h2>
+            </div>
+
+            <button class="text-button" id="showAllPopular">
+                Lihat semua
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </div>
+
+        <div class="game-grid" id="popularGrid"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ALL GAMES
+========================= -->
+
+<section class="games-section all-games" id="games">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">KATALOG</span>
+                <h2>Semua Game</h2>
+            </div>
+
+            <div class="sort-wrapper">
+
+                <select id="sortSelect">
+
+                    <option value="latest">
+                        Terbaru
+                    </option>
+
+                    <option value="rating">
+                        Rating
+                    </option>
+
+                    <option value="name">
+                        Nama A-Z
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="game-grid" id="gameGrid"></div>
+
+        <div class="empty-state" id="emptyState">
+
+    <div class="empty-icon">
+        <i class="fa-solid fa-gamepad"></i>
+    </div>
+
+    <h3>Game tidak ditemukan</h3>
+
+    <p>
+        Coba gunakan kata kunci pencarian lain.
+    </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     INFO
+========================= -->
+
+<section class="info-section" id="about">
+
+    <div class="container">
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div>
+
+                <span class="section-label">
+                    PLAYVAULT
+                </span>
+
+                <h2>Katalog Game yang Aman & Terorganisir</h2>
+
+                <p>
+                    PlayVault dirancang sebagai katalog game yang
+                    memudahkan pengguna menemukan informasi game,
+                    platform, rating, ukuran, dan detail lainnya.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="container footer-container">
+
+        <div class="footer-brand">
+
+            <a href="#" class="logo">
+
+                <span class="logo-icon">
+                    <i class="fa-solid fa-gamepad"></i>
+                </span>
+
+                <span>Play<span>Vault</span></span>
+
+            </a>
+
+            <p>
+                Katalog game PlayStation modern untuk memudahkan
+                pencarian dan eksplorasi game.
+            </p>
+
+        </div>
+
+        <div class="footer-links">
+
+            <h4>Navigasi</h4>
+
+            <a href="#home">Beranda</a>
+            <a href="#games">Game</a>
+            <a href="#popular">Populer</a>
+            <a href="#about">Tentang</a>
+
+        </div>
+
+        <div class="footer-links">
+
+            <h4>Platform</h4>
+
+            <a href="#games">PlayStation 1</a>
+            <a href="#games">PlayStation 2</a>
+            <a href="#games">PSP</a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <div class="container">
+
+            <p>
+                © <span id="year"></span> PlayVault.
+                Semua hak cipta tetap milik pemegang hak masing-masing.
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================
+     GAME DETAIL MODAL
+========================= -->
+
+<div class="modal" id="gameModal">
+
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <div class="modal-content">
+
+        <button class="modal-close" id="modalClose">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div id="modalBody"></div>
+
+    </div>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+    <!-- JAVASCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
