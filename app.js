@@ -981,12 +981,7 @@ searchInput.addEventListener(
                         String(
                             game.platform || ""
                         ).toLowerCase();
-
-
-                    const genre =
-                        String(
-                            game.genre || ""
-                        ).toLowerCase();
+                    ).toLowerCase();
 
 
                     return (
@@ -1002,8 +997,7 @@ searchInput.addEventListener(
         // ==================================
         // TAMPILKAN HASIL
         // ==================================
-
-        renderGames(filtered);
+            renderGames(filtered);
 
     }
 );
@@ -1066,8 +1060,6 @@ logoutBtn.addEventListener(
 
                 return;
             }
-
-
             // Kembali ke halaman login
 
             window.location.href =
@@ -1111,3 +1103,9 @@ console.log(
 // Cek apakah admin sudah login
 
 checkAdminSession();
+
+
+                    const genre =
+                        String(
+                            game.genre || ""
+               
