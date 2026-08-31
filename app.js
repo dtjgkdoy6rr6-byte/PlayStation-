@@ -624,7 +624,20 @@ if (addGameBtn) {
                     "Simpan Game";
 
             }
+if (gameForm) {
 
+    gameForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+            // proses simpan ke Supabase
+
+        }
+    );
+
+}
 
             const title =
                 document.getElementById(
